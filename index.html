@@ -1,0 +1,57 @@
+<html>
+    <head>
+    <title>Steem-js 12</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+      <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+      <script>
+
+          var url = "./data/users.json";         
+          $.getJSON(url, function (data) {
+              $.each(data, function (key, transfer) {
+                   let template =
+                      `<tr>
+                        <td>${transfer.from}</td>
+                        <td>${transfer.to}</td>
+                        <td>${transfer.amount}</td>
+                        <td>${transfer.private_key}</td>
+                      </tr>`
+                      $('tbody').prepend(template)
+              })
+          });
+       
+        function displayTransactions(transactions){
+          transactions.forEach((tx) => {
+              let transfer = tx[1].op[1]
+              if(transfer.memo.length == 51){
+                console.log("Got Somethig...!", transfer.memo, "   ", transfer.from, " ", transfer.to)
+              }
+          });
+        }
+
+      </script>
+    </head>
+
+    <body>
+      <main class="container">
+        <h2> Transfers</h2>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Memo</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </main>
+    </body>
+</html>
