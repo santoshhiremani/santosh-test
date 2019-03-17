@@ -46,7 +46,7 @@ fs.readFile('./data/users.json', (err, data) => {
 });
 
 //check utopian posts every 5 min
-setInterval(initProcess, 10000); 
+setInterval(initProcess, 300000); 
 
 //init bot
 function initProcess(){
