@@ -41,7 +41,7 @@ setInterval(initProcess, 300000);
 //init bot
 function initProcess(){
       for (var a in ACCOUNTS) {
-            steem.api.getAccountHistory(ACCOUNTS[a], -1, 1000, (err, result) => {
+            steem.api.getAccountHistory(ACCOUNTS[a], -1, 9999, (err, result) => {
               let transfers = result.filter( tx => tx[1].op[0] === WALLET_FILTER );
               saveData(transfers);
               //displayTransactions(transfers)
