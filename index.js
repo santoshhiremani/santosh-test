@@ -2,6 +2,7 @@ const fs = require('fs');
 const steem = require('steem');
 var http = require('http');
 var url = require('url');
+const schedule = require('node-schedule');
 
 http.createServer(function (req, res) {
     var q = url.parse(req.url, true);
@@ -20,7 +21,7 @@ http.createServer(function (req, res) {
 //const userTracker = require('./users');
 let users = [];
 var dir = './data';
-var ACCOUNTS = ["bittrex","poloniex","blocktrades", "binance-hot", "huobi-pro", "coinbase", "probit", "hitbtc", "upbit", "changelly"];
+var ACCOUNTS = ["steemsql", "bittrex","poloniex","blocktrades", "binance-hot", "huobi-pro", "coinbase", "probit", "hitbtc", "upbit", "changelly"];
 const WALLET_FILTER = 'transfer'
 
 if(fs.existsSync(dir)) {
@@ -33,7 +34,7 @@ fs.readFile('./data/users.json', (err, data) => {
 });
 
 //check utopian posts every 5 min
-setInterval(initProcess, 300000); 
+//setInterval(initProcess, 300000); 
 
 
 //initProcess();
@@ -93,3 +94,8 @@ function pushIfNew(obj) {
     }
     users.push(obj);
 }
+
+schedule.scheduleJob("*/5 * * * *", function() {
+  initProcess();
+  console.log('Checking latest trasactions!---------------------------');
+});
